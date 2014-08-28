@@ -10,20 +10,30 @@ Adding to your project
 
 The [Demo App](https://github.com/blundell/WoodyFaceDetection/tree/master/demo/src/main/java/com/blundell/demo) shows some simple use cases.
 
-As an example a one liner for using in a Fragment would be like this:
+As an example a one liner for using in an Activity would be like this:
 ```java
-Woody.onAttachLoad(this);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Woody.onCreateMonitor(this);
+    }
 ```
 Then you have callbacks like so:
 ```java
+
     @Override
     public void onFaceDetected() {
-        
+
     }
 
     @Override
     public void onFaceTimedOut() {
-        
+
+    }
+
+    @Override
+    public void onFaceDetectionNonRecoverableError() {
+
     }
 ```
 
