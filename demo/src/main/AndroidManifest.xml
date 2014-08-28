@@ -7,6 +7,17 @@
     android:icon="@drawable/ic_launcher"
     android:theme="@style/AppTheme">
 
+    <activity android:name=".ChooserActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+
+    <activity android:name=".FragmentActivity" />
+    <activity android:name=".ExampleWithLeastEffortActivity" />
+    <activity android:name=".ExampleWithCameraControlActivity" />
+
   </application>
 
 </manifest>

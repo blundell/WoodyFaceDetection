@@ -2,12 +2,18 @@ package com.blundell.demo;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.blundell.woody.FaceDetectionCamera;
 import com.blundell.woody.Woody;
 
 public class ExampleFragment extends Fragment implements Woody.FragmentListener {
+
+    private FaceDetectionCamera camera;
 
     @Override
     public void onAttach(Activity activity) {
@@ -16,7 +22,13 @@ public class ExampleFragment extends Fragment implements Woody.FragmentListener 
     }
 
     @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_example, container, false);
+    }
+
+    @Override
     public void onLoaded(FaceDetectionCamera camera) {
+        this.camera = camera;
 //        camera.initialise(this);
         camera.initialiseWithDebugPreview(getActivity(), this);
     }
@@ -41,4 +53,11 @@ public class ExampleFragment extends Fragment implements Woody.FragmentListener 
         Log.e("XXX", "onFaceDetectionNonRecoverableError");
     }
 
+    @Override
+    public void onDetach() {
+        if (camera != null) {
+            camera.recycle();
+        }
+        super.onDetach();
+    }
 }

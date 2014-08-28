@@ -8,6 +8,7 @@ public class Woody {
      * For use with Fragments
      * <p/>
      * Use to load the front facing camera, once you receive the camera you can choose how to initialise it
+     * You also need to manage recycling the camera object when using this from a fragment
      *
      * @param listener the listener to receive the camera
      */
@@ -48,11 +49,11 @@ public class Woody {
     }
 
     public interface ActivityListener extends FrontCameraRetriever.Listener, FaceDetectionCamera.Listener {
-
+        // Marker interfaces to make implementation hidden and use easier
     }
 
     public interface ActivityMonitorListener extends EasyFaceDetection.Listener {
-
+        // Marker interfaces to make implementation hidden and use easier
     }
 
 }

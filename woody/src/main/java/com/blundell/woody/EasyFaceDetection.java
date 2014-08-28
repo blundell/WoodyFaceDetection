@@ -15,8 +15,8 @@ public class EasyFaceDetection {
         FrontCameraRetriever.retrieve(activity, new FrontCameraRetriever.Listener() {
             @Override
             public void onLoaded(FaceDetectionCamera camera) {
-//                camera.initialise(listener);
-                camera.initialiseWithDebugPreview(activity, listener);
+                camera.initialise(listener);
+//                camera.initialiseWithDebugPreview(activity, listener);
             }
 
             @Override

@@ -36,7 +36,8 @@ public class FaceDetectionCamera implements OneShotFaceDetectionListener.Listene
      * @param activity the activity which will have the preview overlaid
      * @param listener the {@link com.blundell.woody.FaceDetectionCamera.Listener} for when faces are detected
      */
-    public void initialiseWithDebugPreview(Activity activity, Listener listener) {
+    public void
+    initialiseWithDebugPreview(Activity activity, Listener listener) {
         DebugCameraPreview debugCameraPreview = new DebugCameraPreview(activity, this, listener);
         debugCameraPreview.setLayoutParams(new FrameLayout.LayoutParams(PREVIEW_WIDTH, PREVIEW_HEIGHT));
         camera.setDisplayOrientation(PORTRAIT);
@@ -51,6 +52,11 @@ public class FaceDetectionCamera implements OneShotFaceDetectionListener.Listene
      */
     public void initialise(SurfaceHolder holder, Listener listener) {
         this.listener = listener;
+        try {
+            camera.stopPreview();
+        } catch (Exception swallow) {
+            // ignore: tried to stop a non-existent preview
+        }
         try {
             camera.setPreviewDisplay(holder);
             camera.startPreview();

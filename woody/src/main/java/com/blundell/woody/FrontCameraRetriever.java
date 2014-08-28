@@ -63,6 +63,7 @@ public class FrontCameraRetriever implements Application.ActivityLifecycleCallba
         if (camera != null) {
             camera.recycle();
         }
+        activity.getApplication().unregisterActivityLifecycleCallbacks(this);
     }
 
     @Override

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/chooser_button_fragment_with_preview"
+    android:id="@+id/button"
+    android:layout_gravity="center_horizontal"
+    android:onClick="onFragmentWithPreview" />
+
+  <Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/chooser_button_activity_with_preview"
+    android:id="@+id/button2"
+    android:layout_gravity="center_horizontal"
+    android:onClick="onActivityWithPreview" />
+
+  <Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/chooser_button_simplest_activity_example"
+    android:id="@+id/button3"
+    android:layout_gravity="center_horizontal"
+    android:onClick="onSimplestSetupActivity" />
+</LinearLayout>
