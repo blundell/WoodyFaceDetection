@@ -1,4 +1,4 @@
-package com.blundell.woody;
+package com.blundell.woody.core;
 
 import android.app.Activity;
 import android.hardware.Camera;
@@ -24,33 +24,32 @@ public class FaceDetectionCamera implements OneShotFaceDetectionListener.Listene
     /**
      * Use this to detect faces without an on screen preview
      *
-     * @param listener the {@link com.blundell.woody.FaceDetectionCamera.Listener} for when faces are detected
+     * @param listener the {@link FaceDetectionCamera.Listener} for when faces are detected
      */
     public void initialise(Listener listener) {
-        initialise(new DummySurfaceHolder(), listener);
+        initialise(listener, new DummySurfaceHolder());
     }
 
     /**
      * Use this to detect faces but also show a debug camera preview for testing
      *
+     * @param listener the {@link com.blundell.woody.core.FaceDetectionCamera.Listener} for when faces are detected
      * @param activity the activity which will have the preview overlaid
-     * @param listener the {@link com.blundell.woody.FaceDetectionCamera.Listener} for when faces are detected
      */
-    public void
-    initialiseWithDebugPreview(Activity activity, Listener listener) {
-        DebugCameraPreview debugCameraPreview = new DebugCameraPreview(activity, this, listener);
-        debugCameraPreview.setLayoutParams(new FrameLayout.LayoutParams(PREVIEW_WIDTH, PREVIEW_HEIGHT));
+    public void initialiseWithDebugPreview(Listener listener, Activity activity) {
+        DebugCameraSurfaceView debugCameraSurfaceView = new DebugCameraSurfaceView(activity, this, listener);
+        debugCameraSurfaceView.setLayoutParams(new FrameLayout.LayoutParams(PREVIEW_WIDTH, PREVIEW_HEIGHT));
         camera.setDisplayOrientation(PORTRAIT);
-        ((FrameLayout) activity.findViewById(android.R.id.content)).addView(debugCameraPreview);
+        ((FrameLayout) activity.findViewById(android.R.id.content)).addView(debugCameraSurfaceView);
     }
 
     /**
      * Use this to detect faces when you have a custom surface to display upon
      *
+     * @param listener the {@link com.blundell.woody.core.FaceDetectionCamera.Listener} for when faces are detected
      * @param holder   the {@link android.view.SurfaceHolder} to display upon
-     * @param listener the {@link com.blundell.woody.FaceDetectionCamera.Listener} for when faces are detected
      */
-    public void initialise(SurfaceHolder holder, Listener listener) {
+    public void initialise(Listener listener, SurfaceHolder holder) {
         this.listener = listener;
         try {
             camera.stopPreview();

@@ -1,4 +1,4 @@
-package com.blundell.woody;
+package com.blundell.woody.core;
 
 import android.hardware.Camera;
 

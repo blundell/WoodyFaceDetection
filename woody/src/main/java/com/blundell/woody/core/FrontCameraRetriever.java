@@ -1,4 +1,4 @@
-package com.blundell.woody;
+package com.blundell.woody.core;
 
 import android.app.Activity;
 import android.app.Application;
@@ -63,7 +63,6 @@ public class FrontCameraRetriever implements Application.ActivityLifecycleCallba
         if (camera != null) {
             camera.recycle();
         }
-        activity.getApplication().unregisterActivityLifecycleCallbacks(this);
     }
 
     @Override
@@ -78,7 +77,7 @@ public class FrontCameraRetriever implements Application.ActivityLifecycleCallba
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-        // not used
+        activity.getApplication().unregisterActivityLifecycleCallbacks(this);
     }
 
     public interface Listener extends LoadFrontCameraAsyncTask.Listener {

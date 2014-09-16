@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.blundell.woody.FaceDetectionCamera;
+import com.blundell.woody.core.FaceDetectionCamera;
 import com.blundell.woody.Woody;
 
 public class ExampleFragment extends Fragment implements Woody.FragmentListener {
@@ -30,7 +30,7 @@ public class ExampleFragment extends Fragment implements Woody.FragmentListener 
     public void onLoaded(FaceDetectionCamera camera) {
         this.camera = camera;
 //        camera.initialise(this);
-        camera.initialiseWithDebugPreview(getActivity(), this);
+        camera.initialiseWithDebugPreview(this, getActivity());
     }
 
     @Override

@@ -1,17 +1,17 @@
-package com.blundell.woody;
+package com.blundell.woody.core;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-@SuppressLint("ViewConstructor") // View can only be used programatically
-public class DebugCameraPreview extends SurfaceView implements SurfaceHolder.Callback {
+@SuppressLint("ViewConstructor") // View can only be inflated programatically
+public class DebugCameraSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 
     private final FaceDetectionCamera camera;
     private final FaceDetectionCamera.Listener listener;
 
-    public DebugCameraPreview(Context context, FaceDetectionCamera camera, FaceDetectionCamera.Listener listener) {
+    public DebugCameraSurfaceView(Context context, FaceDetectionCamera camera, FaceDetectionCamera.Listener listener) {
         super(context);
         this.camera = camera;
         this.listener = listener;
@@ -20,7 +20,7 @@ public class DebugCameraPreview extends SurfaceView implements SurfaceHolder.Cal
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        camera.initialise(holder, listener);
+        camera.initialise(listener, holder);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class DebugCameraPreview extends SurfaceView implements SurfaceHolder.Cal
         if (surfaceDoesNotExist()) {
             return;
         }
-        camera.initialise(holder, listener);
+        camera.initialise(listener, holder);
     }
 
     private boolean surfaceDoesNotExist() {

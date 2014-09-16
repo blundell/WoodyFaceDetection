@@ -2,6 +2,9 @@ package com.blundell.woody;
 
 import android.app.Activity;
 
+import com.blundell.woody.core.FaceDetectionCamera;
+import com.blundell.woody.core.FrontCameraRetriever;
+
 /**
  * I control everything about face detection for you and you just get callbacks when found
  */
