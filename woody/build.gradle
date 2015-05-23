@@ -1,4 +1,14 @@
 apply plugin: 'com.android.library'
+apply plugin: 'bintray-release'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.2.10'
+    }
+}
 
 android {
     compileSdkVersion 22
@@ -12,4 +22,13 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+publish {
+    userOrg = 'blundell'
+    groupId = 'com.blundell'
+    artifactId = 'woody'
+    publishVersion = '1.0.0'
+    description = 'Simplify the detection of faces using the front facing camera.'
+    website = 'https://github.com/blundell/WoodyFaceDetection'
 }
