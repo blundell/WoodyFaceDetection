@@ -6,7 +6,7 @@ import android.util.Log;
 
 import com.blundell.woody.Woody;
 
-public class ExampleWithLeastEffortActivity extends Activity implements Woody.ActivityMonitorListener {
+public class ActivityWithSimpleSetup extends Activity implements Woody.ActivityMonitorListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -14,9 +14,9 @@
       </intent-filter>
     </activity>
 
-    <activity android:name=".FragmentActivity" />
-    <activity android:name=".ExampleWithLeastEffortActivity" />
-    <activity android:name=".ExampleWithCameraControlActivity" />
+    <activity android:name=".ExampleActivity" />
+    <activity android:name=".ActivityWithSimpleSetup" />
+    <activity android:name=".ActivityWithPreview" />
 
   </application>
 

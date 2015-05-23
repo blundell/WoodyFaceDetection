@@ -14,17 +14,17 @@ public class ChooserActivity extends Activity {
     }
 
     public void onFragmentWithPreview(View button) {
-        Intent intent = new Intent(this, FragmentActivity.class);
+        Intent intent = new Intent(this, ExampleActivity.class);
         startActivity(intent);
     }
 
     public void onActivityWithPreview(View button) {
-        Intent intent = new Intent(this, ExampleWithLeastEffortActivity.class);
+        Intent intent = new Intent(this, ActivityWithPreview.class);
         startActivity(intent);
     }
 
     public void onSimplestSetupActivity(View button) {
-        Intent intent = new Intent(this, ExampleWithCameraControlActivity.class);
+        Intent intent = new Intent(this, ActivityWithSimpleSetup.class);
         startActivity(intent);
     }
 }

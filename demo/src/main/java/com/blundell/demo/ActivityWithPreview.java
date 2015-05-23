@@ -7,7 +7,7 @@ import android.util.Log;
 import com.blundell.woody.core.FaceDetectionCamera;
 import com.blundell.woody.Woody;
 
-public class ExampleWithCameraControlActivity extends Activity implements Woody.ActivityListener {
+public class ActivityWithPreview extends Activity implements Woody.ActivityListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

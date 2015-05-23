@@ -4,4 +4,4 @@
   android:id="@+id/exampleFragment"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  class="com.blundell.demo.ExampleFragment" />
+  class="com.blundell.demo.FragmentWithPreview" />
