@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class FrontCameraRetriever implements UniqueActivityLifecycleCallbacks.LifeCycleCallbacks, LoadFrontCameraAsyncTask.Listener {
 
-    private static final List<FrontCameraRetriever> RETRIEVERS = new ArrayList<>(); // TODO first class collection
+    private static final StackCameraRetrievers RETRIEVERS = new StackCameraRetrievers();
 
     private final Listener listener;
 
@@ -31,14 +31,7 @@ public class FrontCameraRetriever implements UniqueActivityLifecycleCallbacks.Li
         FrontCameraRetriever frontCameraRetriever = new FrontCameraRetriever(listener);
         UniqueActivityLifecycleCallbacks callbacks = UniqueActivityLifecycleCallbacks.newInstance(activity, frontCameraRetriever);
         application.registerActivityLifecycleCallbacks(callbacks);
-        frontCameraRetriever.cameraStrategy = new ActuallyGetCameraStrategy();
-        if (!RETRIEVERS.isEmpty()) {
-            FrontCameraRetriever latestRetriever = RETRIEVERS.get(RETRIEVERS.size() - 1);
-            if (latestRetriever != null) {
-                latestRetriever.cameraStrategy = new DontGetCameraStrategy();
-            }
-        }
-        RETRIEVERS.add(frontCameraRetriever);
+        RETRIEVERS.push(frontCameraRetriever);
     }
 
     FrontCameraRetriever(Listener listener) {
@@ -70,17 +63,57 @@ public class FrontCameraRetriever implements UniqueActivityLifecycleCallbacks.Li
 
     @Override
     public void onActivityDestroyed() {
-        RETRIEVERS.remove(RETRIEVERS.size() - 1);
-        if (!RETRIEVERS.isEmpty()) {
-            FrontCameraRetriever latestRetriever = RETRIEVERS.get(RETRIEVERS.size() - 1);
-            if (latestRetriever != null) {
-                latestRetriever.cameraStrategy = new ActuallyGetCameraStrategy();
-            }
-        }
+        RETRIEVERS.pop();
     }
 
     public interface Listener extends LoadFrontCameraAsyncTask.Listener {
 
     }
 
+    static class StackCameraRetrievers {
+
+        private final List<FrontCameraRetriever> retrievers = new ArrayList<>();
+
+        public void push(FrontCameraRetriever frontCameraRetriever) {
+            enable(frontCameraRetriever);
+            if (!retrievers.isEmpty()) {
+                FrontCameraRetriever latestRetriever = getHead();
+                if (latestRetriever != null) {
+                    disable(latestRetriever);
+                }
+            }
+            retrievers.add(frontCameraRetriever);
+        }
+
+        public void pop() {
+            removeHead();
+            if (!retrievers.isEmpty()) {
+                FrontCameraRetriever latestRetriever = getHead();
+                if (latestRetriever != null) {
+                    enable(latestRetriever);
+                }
+            }
+        }
+
+        private FrontCameraRetriever removeHead() {
+            return retrievers.remove(getHeadPosition());
+        }
+
+        private FrontCameraRetriever getHead() {
+            return retrievers.get(getHeadPosition());
+        }
+
+        private int getHeadPosition() {
+            return retrievers.size() - 1;
+        }
+
+        private void enable(FrontCameraRetriever latestRetriever) {
+            latestRetriever.cameraStrategy = new ActuallyGetCameraStrategy();
+        }
+
+        private void disable(FrontCameraRetriever latestRetriever) {
+            latestRetriever.cameraStrategy = new DontGetCameraStrategy();
+        }
+
+    }
 }
