@@ -4,7 +4,7 @@ class ActuallyGetCameraStrategy implements CameraStrategy {
 
     @Override
     public void loadCamera(LoadFrontCameraAsyncTask.Listener listener) {
-        new LoadFrontCameraAsyncTask(listener).load();
+        new LoadFrontCameraAsyncTask(listener, new LoadPreLollipopFrontCameraTask()).load();
     }
 
     @Override
