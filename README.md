@@ -41,7 +41,7 @@ Then you have callbacks like so:
 Release 
 =======
 
-    `compile 'com.blundell:woody:1.0.0'`
+`compile 'com.blundell:woody:1.0.0'`
 
 Further Reading
 ===============
