@@ -3,7 +3,7 @@ package com.blundell.woody.core;
 import android.app.Activity;
 import android.view.SurfaceHolder;
 
-public interface FaceDetectionCamera extends OneShotFaceDetectionListener.Listener {
+public interface FaceDetectionCamera extends SessionFaceDetectionListener.Listener {
     void initialise(Listener listener);
 
     void initialiseWithDebugPreview(Listener listener, Activity activity);

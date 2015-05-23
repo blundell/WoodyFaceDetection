@@ -62,7 +62,7 @@ public class PreLollipopFaceDetectionCamera implements FaceDetectionCamera {
         try {
             camera.setPreviewDisplay(holder);
             camera.startPreview();
-            camera.setFaceDetectionListener(new OneShotFaceDetectionListener(this));
+            camera.setFaceDetectionListener(new OneShotFaceDetectionListener(new SessionFaceDetectionListener<Camera.Face>(this)));
             camera.startFaceDetection();
         } catch (IOException e) {
             this.listener.onFaceDetectionNonRecoverableError();

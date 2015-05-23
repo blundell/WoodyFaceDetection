@@ -1,6 +1,7 @@
 package com.blundell.woody;
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.blundell.woody.core.FaceDetectionCamera;
 import com.blundell.woody.core.FrontCameraRetriever;
@@ -9,6 +10,8 @@ import com.blundell.woody.core.LoadFrontCameraAsyncTask;
 
 public class Woody {
 
+    public static Context context; //TODO XXX STOPSHIP eww
+
     /**
      * For use with Fragments
      * <p/>
@@ -16,9 +19,11 @@ public class Woody {
      * You also need to manage recycling the camera object when using this from a fragment
      *
      * @param listener the listener to receive the camera
+     * @param activity
      */
-    public static void onAttachLoad(FragmentListener listener) {
-        FrontCameraTaskFactory taskFactory = new FrontCameraTaskFactory();
+    public static void onAttachLoad(FragmentListener listener, Activity activity) { //TODO XXX Adding Activity param here is an API breaking change
+        context = activity.getApplicationContext();
+        FrontCameraTaskFactory taskFactory = new FrontCameraTaskFactory(context);
         LoadFrontCameraAsyncTask frontCameraAsyncTask = taskFactory.getLoadFrontCameraAsyncTask(listener);
         frontCameraAsyncTask.load();
     }
@@ -34,6 +39,7 @@ public class Woody {
         if (!(activity instanceof ActivityListener)) {
             throw new IllegalStateException("Your " + activity.getClass().getSimpleName() + " must implement " + ActivityListener.class.getSimpleName());
         }
+        context = activity.getApplicationContext();
         FrontCameraRetriever.retrieveFor(activity);
     }
 
@@ -48,6 +54,7 @@ public class Woody {
         if (!(activity instanceof ActivityMonitorListener)) {
             throw new IllegalStateException("Your " + activity.getClass().getSimpleName() + " must implement " + ActivityMonitorListener.class.getSimpleName());
         }
+        context = activity.getApplicationContext();
         EasyFaceDetection.monitor(activity);
     }
 

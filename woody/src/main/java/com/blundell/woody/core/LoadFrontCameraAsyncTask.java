@@ -5,9 +5,9 @@ import android.os.AsyncTask;
 public class LoadFrontCameraAsyncTask extends AsyncTask<Void, Void, FaceDetectionCamera> {
 
     private final Listener listener;
-    private LoadPreLollipopFrontCameraTask loadPreLollipopFrontCameraTask;
+    private LoadFrontCameraTask loadPreLollipopFrontCameraTask;
 
-    public LoadFrontCameraAsyncTask(Listener listener, LoadPreLollipopFrontCameraTask loadPreLollipopFrontCameraTask) {
+    public LoadFrontCameraAsyncTask(Listener listener, LoadFrontCameraTask loadPreLollipopFrontCameraTask) {
         this.listener = listener;
         this.loadPreLollipopFrontCameraTask = loadPreLollipopFrontCameraTask;
     }

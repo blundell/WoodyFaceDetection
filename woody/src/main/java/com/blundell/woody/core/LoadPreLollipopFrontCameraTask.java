@@ -3,8 +3,9 @@ package com.blundell.woody.core;
 import android.hardware.Camera;
 import android.util.Log;
 
-class LoadPreLollipopFrontCameraTask {
+class LoadPreLollipopFrontCameraTask implements LoadFrontCameraTask {
 
+    @Override
     public FaceDetectionCamera getFaceDetectionCamera() {
         try {
             int id = getFrontFacingCameraId();
@@ -16,7 +17,7 @@ class LoadPreLollipopFrontCameraTask {
             }
 
             return new PreLollipopFaceDetectionCamera(camera);
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             Log.e("XXX", "Likely hardware / non released camera / other app fail", e);
             return null;
         }

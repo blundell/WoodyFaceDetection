@@ -20,7 +20,7 @@ public class FragmentWithPreview extends Fragment implements Woody.FragmentListe
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        Woody.onAttachLoad(this);
+        Woody.onAttachLoad(this, activity);
     }
 
     @Override
