@@ -28,7 +28,7 @@ publish {
     userOrg = 'blundell'
     groupId = 'com.blundell'
     artifactId = 'woody'
-    publishVersion = '1.0.0'
+    publishVersion = '1.1.0'
     description = 'Simplify the detection of faces using the front facing camera.'
     website = 'https://github.com/blundell/WoodyFaceDetection'
 }

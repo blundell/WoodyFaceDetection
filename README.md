@@ -38,10 +38,10 @@ Then you have callbacks like so:
 ```
 
 
-Release 
+Release [change log](CHANGELOG.md)
 =======
 
-`compile 'com.blundell:woody:1.0.0'`
+`compile 'com.blundell:woody:1.1.0'`
 
 Further Reading
 ===============
