@@ -41,7 +41,7 @@ Then you have callbacks like so:
 Release 
 =======
 
-Releasing to JCenter TODO
+    `compile 'com.blundell:woody:1.0.0'`
 
 Further Reading
 ===============
