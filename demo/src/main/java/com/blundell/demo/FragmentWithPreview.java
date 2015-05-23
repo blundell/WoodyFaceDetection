@@ -7,13 +7,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.blundell.woody.core.FaceDetectionCamera;
 import com.blundell.woody.Woody;
+import com.blundell.woody.core.FaceDetectionCamera;
 
 public class FragmentWithPreview extends Fragment implements Woody.FragmentListener {
 
     private FaceDetectionCamera camera;
+    private Toast toast;
 
     @Override
     public void onAttach(Activity activity) {
@@ -35,22 +37,31 @@ public class FragmentWithPreview extends Fragment implements Woody.FragmentListe
 
     @Override
     public void onFaceDetected() {
-        Log.d("XXX", "onFaceDetected");
+        Log.d("XXX", toast("onFaceDetected"));
     }
 
     @Override
     public void onFaceTimedOut() {
-        Log.d("XXX", "onFaceTimedOut");
+        Log.d("XXX", toast("onFaceTimedOut"));
     }
 
     @Override
     public void onFailedToLoadFaceDetectionCamera() {
-        Log.e("XXX", "onFailedToLoadFaceDetectionCamera");
+        Log.e("XXX", toast("onFailedToLoadFaceDetectionCamera"));
     }
 
     @Override
     public void onFaceDetectionNonRecoverableError() {
-        Log.e("XXX", "onFaceDetectionNonRecoverableError");
+        Log.e("XXX", toast("onFaceDetectionNonRecoverableError"));
+    }
+
+    private String toast(String msg) {
+        if (toast != null) {
+            toast.cancel();
+        }
+        toast = Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT);
+        toast.show();
+        return msg;
     }
 
     @Override
