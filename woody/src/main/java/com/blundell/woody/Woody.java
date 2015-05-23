@@ -4,8 +4,8 @@ import android.app.Activity;
 
 import com.blundell.woody.core.FaceDetectionCamera;
 import com.blundell.woody.core.FrontCameraRetriever;
+import com.blundell.woody.core.FrontCameraTaskFactory;
 import com.blundell.woody.core.LoadFrontCameraAsyncTask;
-import com.blundell.woody.core.LoadPreLollipopFrontCameraTask;
 
 public class Woody {
 
@@ -18,7 +18,9 @@ public class Woody {
      * @param listener the listener to receive the camera
      */
     public static void onAttachLoad(FragmentListener listener) {
-        new LoadFrontCameraAsyncTask(listener, new LoadPreLollipopFrontCameraTask()).load();
+        FrontCameraTaskFactory taskFactory = new FrontCameraTaskFactory();
+        LoadFrontCameraAsyncTask frontCameraAsyncTask = taskFactory.getLoadFrontCameraAsyncTask(listener);
+        frontCameraAsyncTask.load();
     }
 
     /**

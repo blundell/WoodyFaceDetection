@@ -3,7 +3,7 @@ package com.blundell.woody.core;
 import android.hardware.Camera;
 import android.util.Log;
 
-public class LoadPreLollipopFrontCameraTask {
+class LoadPreLollipopFrontCameraTask {
 
     public FaceDetectionCamera getFaceDetectionCamera() {
         try {
