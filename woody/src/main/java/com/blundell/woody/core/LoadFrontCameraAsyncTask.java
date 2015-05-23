@@ -27,7 +27,7 @@ public class LoadFrontCameraAsyncTask extends AsyncTask<Void, Void, FaceDetectio
                 return null;
             }
 
-            return new FaceDetectionCamera(camera);
+            return new PreLollipopFaceDetectionCamera(camera);
         } catch (RuntimeException e) {
             Log.e("XXX", "Likely hardware / non released camera / other app fail", e);
             return null;
