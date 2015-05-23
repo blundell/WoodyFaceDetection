@@ -2,17 +2,21 @@ package com.blundell.woody.core;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
-import android.os.Bundle;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * I manage loading and destroying the camera reference for you
  */
-public class FrontCameraRetriever implements Application.ActivityLifecycleCallbacks, LoadFrontCameraAsyncTask.Listener {
+public class FrontCameraRetriever implements UniqueActivityLifecycleCallbacks.LifeCycleCallbacks, LoadFrontCameraAsyncTask.Listener {
+
+    private static final List<FrontCameraRetriever> RETRIEVERS = new ArrayList<>(); // TODO first class collection
 
     private final Listener listener;
 
     private FaceDetectionCamera camera;
+    private CameraStrategy cameraStrategy;
 
     public static void retrieveFor(Activity activity) {
         if (!(activity instanceof Listener)) {
@@ -22,10 +26,19 @@ public class FrontCameraRetriever implements Application.ActivityLifecycleCallba
         retrieve(activity, listener);
     }
 
-    public static void retrieve(Context context, Listener listener) {
-        Application application = (Application) context.getApplicationContext();
+    public static void retrieve(Activity activity, Listener listener) {
+        Application application = (Application) activity.getApplicationContext();
         FrontCameraRetriever frontCameraRetriever = new FrontCameraRetriever(listener);
-        application.registerActivityLifecycleCallbacks(frontCameraRetriever);
+        UniqueActivityLifecycleCallbacks callbacks = UniqueActivityLifecycleCallbacks.newInstance(activity, frontCameraRetriever);
+        application.registerActivityLifecycleCallbacks(callbacks);
+        frontCameraRetriever.cameraStrategy = new ActuallyGetCameraStrategy();
+        if (!RETRIEVERS.isEmpty()) {
+            FrontCameraRetriever latestRetriever = RETRIEVERS.get(RETRIEVERS.size() - 1);
+            if (latestRetriever != null) {
+                latestRetriever.cameraStrategy = new DontGetCameraStrategy();
+            }
+        }
+        RETRIEVERS.add(frontCameraRetriever);
     }
 
     FrontCameraRetriever(Listener listener) {
@@ -33,18 +46,8 @@ public class FrontCameraRetriever implements Application.ActivityLifecycleCallba
     }
 
     @Override
-    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        // not used
-    }
-
-    @Override
-    public void onActivityStarted(Activity activity) {
-        // not used
-    }
-
-    @Override
-    public void onActivityResumed(Activity activity) {
-        new LoadFrontCameraAsyncTask(this).load();
+    public void onActivityResumed() {
+        cameraStrategy.loadCamera(this);
     }
 
     @Override
@@ -59,28 +62,25 @@ public class FrontCameraRetriever implements Application.ActivityLifecycleCallba
     }
 
     @Override
-    public void onActivityPaused(Activity activity) {
+    public void onActivityPaused() {
         if (camera != null) {
-            camera.recycle();
+            cameraStrategy.disposeCamera(camera);
         }
     }
 
     @Override
-    public void onActivityStopped(Activity activity) {
-        // not used
-    }
-
-    @Override
-    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-        // not used
-    }
-
-    @Override
-    public void onActivityDestroyed(Activity activity) {
-        activity.getApplication().unregisterActivityLifecycleCallbacks(this);
+    public void onActivityDestroyed() {
+        RETRIEVERS.remove(RETRIEVERS.size() - 1);
+        if (!RETRIEVERS.isEmpty()) {
+            FrontCameraRetriever latestRetriever = RETRIEVERS.get(RETRIEVERS.size() - 1);
+            if (latestRetriever != null) {
+                latestRetriever.cameraStrategy = new ActuallyGetCameraStrategy();
+            }
+        }
     }
 
     public interface Listener extends LoadFrontCameraAsyncTask.Listener {
 
     }
+
 }
