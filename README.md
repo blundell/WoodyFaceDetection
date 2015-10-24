@@ -41,7 +41,7 @@ Then you have callbacks like so:
 Release [change log](CHANGELOG.md)
 =======
 
-`compile 'com.blundell:woody:1.1.0'`
+`compile 'com.blundell:woody:1.1.1'`
 
 Further Reading
 ===============
