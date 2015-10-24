@@ -11,7 +11,6 @@ public class Woody {
 
     /**
      * For use with Fragments
-     * <p/>
      * Use to load the front facing camera, once you receive the camera you can choose how to initialise it
      * You also need to manage recycling the camera object when using this from a fragment
      *
@@ -25,7 +24,6 @@ public class Woody {
 
     /**
      * For use with Activities
-     * <p/>
      * Use to load the front facing camera, once you receive the camera you can choose how to initialise it (preview etc)
      *
      * @param activity the activity to load the camera into , <b>Must implement {@link ActivityListener}</b>
@@ -39,7 +37,6 @@ public class Woody {
 
     /**
      * For use with Activities
-     * <p/>
      * Use to listen for face detection events, you cannot customise the camera initialisation, (no preview)
      *
      * @param activity the activity to receive face detection events   <b>Must implement {@link ActivityMonitorListener}</b>
